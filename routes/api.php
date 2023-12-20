@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Endpoint para Crear una Nueva Cuenta Bancaria
+Route::post('/accounts', [AccountController::class, 'store']);
+
+//Endpoint para Realizar un Depósito
+Route::post('/transactions/deposit', [AccountController::class, 'deposit']);
+
+//Endpoint para Realizar un Retiro
+Route::post('/transactions/withdrawal', [AccountController::class, 'withdrawal']);
+
+//Endpoint para Consultar el Saldo de una Cuenta
+Route::get('/accounts/{id}/balance', [AccountController::class, 'balance']);
+
+//Endpoint para Consultar el Historial de Transacciones
+Route::get('/accounts/{id}/transactions', [AccountController::class, 'transactions']);
