@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,17 +15,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Endpoint para Crear una Nueva Cuenta Bancaria
-Route::post('/accounts', [AccountController::class, 'store']);
+//Endpoint para registrar un usuario
+Route::post('/register', [AuthController::class, 'register']);
 
-//Endpoint para Realizar un Depósito
-Route::post('/transactions/deposit', [AccountController::class, 'deposit']);
+//Endpoint para autenticar un usuario registrado
+Route::post('/login', [AuthController::class, 'login']);
 
-//Endpoint para Realizar un Retiro
-Route::post('/transactions/withdrawal', [AccountController::class, 'withdrawal']);
+Route::middleware('auth:sanctum')->group(function () {
 
-//Endpoint para Consultar el Saldo de una Cuenta
-Route::get('/accounts/{id}/balance', [AccountController::class, 'balance']);
+    //Endpoint para Crear una Nueva Cuenta Bancaria
+    Route::post('/accounts', [AccountController::class, 'store']);
 
-//Endpoint para Consultar el Historial de Transacciones
-Route::get('/accounts/{id}/transactions', [AccountController::class, 'transactions']);
+    //Endpoint para Realizar un Depósito
+    Route::post('/transactions/deposit', [AccountController::class, 'deposit']);
+
+    //Endpoint para Realizar un Retiro
+    Route::post('/transactions/withdrawal', [AccountController::class, 'withdrawal']);
+
+    //Endpoint para Consultar el Saldo de una Cuenta
+    Route::get('/accounts/{id}/balance', [AccountController::class, 'balance']);
+
+    //Endpoint para Consultar el Historial de Transacciones
+    Route::get('/accounts/{id}/transactions', [AccountController::class, 'transactions']);
+});
