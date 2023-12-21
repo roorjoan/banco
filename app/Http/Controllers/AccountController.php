@@ -32,7 +32,7 @@ class AccountController extends Controller
      */
     public function store(AccountStoreRequest $request)
     {
-        $account = $this->accountRepository->storeAccount($request);
+        $account = $this->accountRepository->storeAccount($request->all());
 
         return response()->json($account, 201);
     }
