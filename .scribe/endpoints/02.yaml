@@ -1,0 +1,233 @@
+name: Transacción
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/transactions/deposit
+    metadata:
+      groupName: Transacción
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Realizar un depósito'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      id:
+        name: id
+        description: 'Número de la cuenta.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      amount:
+        name: amount
+        description: 'Cantidad a depositar.'
+        required: true
+        example: autem
+        type: numeric
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      id: 1
+      amount: autem
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "operation": "deposit",
+              "account": 1,
+              "balance": 1200.00
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Account not found."
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer dhD841P5cVeaa3E66fgbZkv'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/transactions/withdrawal
+    metadata:
+      groupName: Transacción
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Realizar un retiro'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      id:
+        name: id
+        description: 'Número de la cuenta.'
+        required: true
+        example: 10
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      amount:
+        name: amount
+        description: 'Cantidad a retirar.'
+        required: true
+        example: quo
+        type: numeric
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      id: 10
+      amount: quo
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "operation": "withdrawal",
+              "account": 1,
+              "balance": 800.00
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Account not found."
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 500
+        content: |-
+          {
+              "message": "You cannot withdraw that amount."
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer eZkgD351afadP64V86hEbvc'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/accounts/{id}/transactions'
+    metadata:
+      groupName: Transacción
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Consultar el historial de transacciones'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'Número de la cuenta.'
+        required: true
+        example: 6
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanUrlParameters:
+      id: 6
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {[
+               {
+                   "operation": "deposit",
+                   "account": 2,
+                   "amount": 5000,
+                   "operation_date": "20-12-2023 21:42:46"
+               },
+               {
+                   "operation": "deposit",
+                   "account": 2,
+                   "amount": 15000,
+                   "operation_date": "20-12-2023 21:45:13"
+               }
+          ]}
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Account not found."
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6vD85d6EahV3e4ZcPbakf1g'
+    controller: null
+    method: null
+    route: null
+    custom: []

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Endpoint para registrar un usuario
+//Endpoint para registrar un nuevo usuario
 Route::post('/register', [AuthController::class, 'register']);
 
 //Endpoint para autenticar un usuario registrado

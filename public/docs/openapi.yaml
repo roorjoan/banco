@@ -1,0 +1,398 @@
+openapi: 3.0.3
+info:
+  title: 'Banco API Documentation'
+  description: 'Esta documentación tiene como objetivo proporcionar toda la información que necesitas para trabajar con nuestra API.'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://127.0.0.1:8000'
+paths:
+  /api/register:
+    post:
+      summary: 'Registrar un nuevo usuario'
+      operationId: registrarUnNuevoUsuario
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  user:
+                    id: 1
+                    name: 'John Doe'
+                    email: john@example.com
+                    created_at: '2023-01-01T12:00:00Z'
+                    updated_at: '2023-01-01T12:00:00Z'
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'John Doe'
+                      email:
+                        type: string
+                        example: john@example.com
+                      created_at:
+                        type: string
+                        example: '2023-01-01T12:00:00Z'
+                      updated_at:
+                        type: string
+                        example: '2023-01-01T12:00:00Z'
+      tags:
+        - Autenticación
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Nombre del usuario.'
+                  example: quia
+                email:
+                  type: string
+                  description: 'Correo del usuario.'
+                  example: rogahn.jesse@example.org
+                password:
+                  type: string
+                  description: 'Contraseña del usuario.'
+                  example: 'kK`piKe6e]iu(X2'
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/login:
+    post:
+      summary: 'Autenticar un usuario registrado'
+      operationId: autenticarUnUsuarioRegistrado
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  token: eyJ1eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImJhNz...
+                properties:
+                  token:
+                    type: string
+                    example: eyJ1eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImJhNz...
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthorized
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+      tags:
+        - Autenticación
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Correo del usuario.'
+                  example: gilberto01@example.com
+                password:
+                  type: string
+                  description: 'Contraseña del usuario.'
+                  example: '].*HJ02E_W.r?B(]:-n'
+              required:
+                - email
+                - password
+      security: []
+  /api/accounts:
+    post:
+      summary: 'Crear una nueva cuenta bancaria'
+      operationId: crearUnaNuevaCuentaBancaria
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  amount: 1000.0
+                  created_at: '2023-01-01T12:00:00Z'
+                  updated_at: '2023-01-01T12:00:00Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  amount:
+                    type: number
+                    example: 1000.0
+                  created_at:
+                    type: string
+                    example: '2023-01-01T12:00:00Z'
+                  updated_at:
+                    type: string
+                    example: '2023-01-01T12:00:00Z'
+      tags:
+        - Cuenta
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: numeric
+                  description: 'Balance inicial de la cuenta.'
+                  example: praesentium
+  '/api/accounts/{id}/balance':
+    get:
+      summary: 'Consultar el saldo de una cuenta'
+      operationId: consultarElSaldoDeUnaCuenta
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  balance: 1200.0
+                properties:
+                  balance:
+                    type: number
+                    example: 1200.0
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Account not found.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Account not found.'
+      tags:
+        - Cuenta
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'Número de la cuenta.'
+        example: 10
+        required: true
+        schema:
+          type: integer
+  /api/transactions/deposit:
+    post:
+      summary: 'Realizar un depósito'
+      operationId: realizarUnDepsito
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  operation: deposit
+                  account: 1
+                  balance: 1200.0
+                properties:
+                  operation:
+                    type: string
+                    example: deposit
+                  account:
+                    type: integer
+                    example: 1
+                  balance:
+                    type: number
+                    example: 1200.0
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Account not found.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Account not found.'
+      tags:
+        - Transacción
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 'Número de la cuenta.'
+                  example: 1
+                amount:
+                  type: numeric
+                  description: 'Cantidad a depositar.'
+                  example: autem
+              required:
+                - id
+                - amount
+  /api/transactions/withdrawal:
+    post:
+      summary: 'Realizar un retiro'
+      operationId: realizarUnRetiro
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  operation: withdrawal
+                  account: 1
+                  balance: 800.0
+                properties:
+                  operation:
+                    type: string
+                    example: withdrawal
+                  account:
+                    type: integer
+                    example: 1
+                  balance:
+                    type: number
+                    example: 800.0
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Account not found.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Account not found.'
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'You cannot withdraw that amount.'
+                properties:
+                  message:
+                    type: string
+                    example: 'You cannot withdraw that amount.'
+      tags:
+        - Transacción
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 'Número de la cuenta.'
+                  example: 10
+                amount:
+                  type: numeric
+                  description: 'Cantidad a retirar.'
+                  example: quo
+              required:
+                - id
+                - amount
+  '/api/accounts/{id}/transactions':
+    get:
+      summary: 'Consultar el historial de transacciones'
+      operationId: consultarElHistorialDeTransacciones
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{[\n     {\n         \"operation\": \"deposit\",\n         \"account\": 2,\n         \"amount\": 5000,\n         \"operation_date\": \"20-12-2023 21:42:46\"\n     },\n     {\n         \"operation\": \"deposit\",\n         \"account\": 2,\n         \"amount\": 15000,\n         \"operation_date\": \"20-12-2023 21:45:13\"\n     }\n]}"
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Account not found.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Account not found.'
+      tags:
+        - Transacción
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'Número de la cuenta.'
+        example: 6
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: Autenticación
+    description: ''
+  -
+    name: Cuenta
+    description: ''
+  -
+    name: Transacción
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: ''
+security:
+  -
+    default: []

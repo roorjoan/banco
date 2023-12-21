@@ -1,0 +1,146 @@
+name: Autenticación
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/register
+    metadata:
+      groupName: Autenticación
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Registrar un nuevo usuario'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Nombre del usuario.'
+        required: true
+        example: quia
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      email:
+        name: email
+        description: 'Correo del usuario.'
+        required: true
+        example: rogahn.jesse@example.org
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      password:
+        name: password
+        description: 'Contraseña del usuario.'
+        required: true
+        example: 'kK`piKe6e]iu(X2'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      name: quia
+      email: rogahn.jesse@example.org
+      password: 'kK`piKe6e]iu(X2'
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+              "user": {
+                  "id": 1,
+                  "name": "John Doe",
+                  "email": "john@example.com",
+                  "created_at": "2023-01-01T12:00:00Z",
+                  "updated_at": "2023-01-01T12:00:00Z"
+              }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/login
+    metadata:
+      groupName: Autenticación
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Autenticar un usuario registrado'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'Correo del usuario.'
+        required: true
+        example: gilberto01@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      password:
+        name: password
+        description: 'Contraseña del usuario.'
+        required: true
+        example: '].*HJ02E_W.r?B(]:-n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      email: gilberto01@example.com
+      password: '].*HJ02E_W.r?B(]:-n'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "token": "eyJ1eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImJhNz..."
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+              "message": "Unauthorized"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

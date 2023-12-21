@@ -1,0 +1,121 @@
+name: Cuenta
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/accounts
+    metadata:
+      groupName: Cuenta
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Crear una nueva cuenta bancaria'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      amount:
+        name: amount
+        description: 'Balance inicial de la cuenta.'
+        required: false
+        example: praesentium
+        type: numeric
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      amount: praesentium
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+              "id": 1,
+              "amount": 1000.00,
+              "created_at": "2023-01-01T12:00:00Z",
+              "updated_at": "2023-01-01T12:00:00Z"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer VEvg3dcZP1ae8abDkh6f546'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/accounts/{id}/balance'
+    metadata:
+      groupName: Cuenta
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Consultar el saldo de una cuenta'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'Número de la cuenta.'
+        required: true
+        example: 10
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanUrlParameters:
+      id: 10
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "balance": 1200.00
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Account not found."
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6kDehdgf5cvaPb4EaZ83V16'
+    controller: null
+    method: null
+    route: null
+    custom: []
