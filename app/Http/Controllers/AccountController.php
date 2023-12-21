@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\AccountEvent;
 use App\Http\Requests\AccountDepositWithdrawalRequest;
 use App\Http\Requests\AccountStoreRequest;
 use App\Http\Resources\TransactionResource;
-use App\Models\Account;
+use App\Repositories\AccountRepositoryInterface;
 
 class AccountController extends Controller
 {
+    public function __construct(
+        protected AccountRepositoryInterface $accountRepository
+    ) {
+    }
+
     /**
      * @group Cuenta
      * Crear una nueva cuenta bancaria
@@ -28,7 +32,7 @@ class AccountController extends Controller
      */
     public function store(AccountStoreRequest $request)
     {
-        $account = Account::create($request->validated());
+        $account = $this->accountRepository->storeAccount($request);
 
         return response()->json($account, 201);
     }
@@ -54,17 +58,7 @@ class AccountController extends Controller
      */
     public function deposit(AccountDepositWithdrawalRequest $request)
     {
-        $account = Account::find($request->id);
-        $amount = $request->amount;
-
-        if (is_null($account)) {
-            return response()->json(['message' => 'Account not found.'], 404);
-        }
-
-        $account->amount += $amount;
-        $account->save();
-
-        AccountEvent::dispatch($account, 'deposit', $amount);
+        $account = $this->accountRepository->depositTransaction($request);
 
         return response()->json([
             'operation' => 'deposit',
@@ -97,19 +91,7 @@ class AccountController extends Controller
      */
     public function withdrawal(AccountDepositWithdrawalRequest $request)
     {
-        $account = Account::find($request->id);
-        $amount = $request->amount;
-
-        if (is_null($account)) {
-            return response()->json(['message' => 'Account not found.'], 404);
-        } elseif (($account->amount - $amount) < 0) {
-            return response()->json(['message' => 'You cannot withdraw that amount.'], 500);
-        }
-
-        $account->amount -= $amount;
-        $account->save();
-
-        AccountEvent::dispatch($account, 'withdrawal', $amount);
+        $account =  $this->accountRepository->withdrawalTransaction($request);
 
         return response()->json([
             'operation' => 'withdrawal',
@@ -136,13 +118,9 @@ class AccountController extends Controller
      */
     public function balance($id)
     {
-        $account = Account::find($id);
+        $balance = $this->accountRepository->balanceAccount($id);
 
-        if (is_null($account)) {
-            return response()->json(['message' => 'Account not found.'], 404);
-        }
-
-        return response()->json(['balance' => $account->amount], 200);
+        return response()->json(['balance' => $balance], 200);
     }
 
     /**
@@ -174,12 +152,8 @@ class AccountController extends Controller
      */
     public function transactions($id)
     {
-        $account = Account::with('transactions')->find($id);
+        $transactions = $this->accountRepository->transactionsAccount($id);
 
-        if (is_null($account)) {
-            return response()->json(['message' => 'Account not found.'], 404);
-        }
-
-        return TransactionResource::collection($account->transactions);
+        return TransactionResource::collection($transactions);
     }
 }
